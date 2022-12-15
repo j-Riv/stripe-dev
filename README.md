@@ -4,6 +4,11 @@
 
 > Use Stripe CLI to simulate Stripe events in your local environment or learn more about Webhooks.
 
+Install the Stripe CLI
+https://stripe.com/docs/stripe-cli
+
+Login
+
 ```bash
 stripe login
 ```
