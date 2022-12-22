@@ -498,6 +498,9 @@ export const chargeCardOffSession = async (
 // This example sets up an endpoint using the Express framework.
 // Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
 export const paymentSheet = async (req: Request, res: Response) => {
+  // body
+  const { amount } = req.body;
+
   const { secret_key } = getKeys();
 
   const stripe = new Stripe(secret_key as string, {
@@ -506,6 +509,7 @@ export const paymentSheet = async (req: Request, res: Response) => {
   });
 
   const customers = await stripe.customers.list();
+  console.log('CUSTOMERS', customers);
 
   // Here, we're getting latest customer only for example purposes.
   const customer = customers.data[0];
@@ -518,10 +522,10 @@ export const paymentSheet = async (req: Request, res: Response) => {
 
   const ephemeralKey = await stripe.ephemeralKeys.create(
     { customer: customer.id },
-    { apiVersion: '2020-08-27' },
+    { apiVersion: '2022-11-15' },
   );
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 5099,
+    amount: amount || 5099,
     currency: 'usd',
     customer: customer.id,
     // Edit the following to support different payment methods in your PaymentSheet
