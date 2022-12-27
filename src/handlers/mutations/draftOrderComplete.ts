@@ -3,6 +3,11 @@ export const draftOrderComplete = `
     draftOrderComplete(id: $id) {
       draftOrder {
         # DraftOrder fields
+        id
+        order {
+          id
+          name
+        }
       }
       userErrors {
         field
